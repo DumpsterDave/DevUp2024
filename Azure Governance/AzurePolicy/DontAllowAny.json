@@ -1,0 +1,61 @@
+{
+    "properties": {
+      "displayName": "Dont allow any locations",
+      "policyType": "Custom",
+      "mode": "Indexed",
+      "description": "This policy enables you to restrict the locations your organization can specify when deploying resources. Use to enforce your geo-compliance requirements. Excludes resource groups, Microsoft.AzureActiveDirectory/b2cDirectories, and resources that use the 'global' region.",
+      "metadata": {
+        "category": "General",
+        "createdBy": "317f2263-e555-4008-a66c-98f6488fa8ac",
+        "createdOn": "2024-05-07T15:32:28.5439636Z",
+        "updatedBy": "317f2263-e555-4008-a66c-98f6488fa8ac",
+        "updatedOn": "2024-05-07T15:36:31.256732Z"
+      },
+      "version": "1.0.0",
+      "parameters": {
+        "listOfAllowedLocations": {
+          "type": "Array",
+          "metadata": {
+            "displayName": "Allowed locations",
+            "description": "The list of locations that can be specified when deploying resources.",
+            "strongType": "location"
+          }
+        }
+      },
+      "policyRule": {
+        "if": {
+          "anyOf": [
+            {
+              "field": "location",
+              "in": "[parameters('listOfAllowedLocations')]"
+            },
+            {
+              "field": "location",
+              "Equals": "global"
+            },
+            {
+              "field": "type",
+              "Equals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+            }
+          ]
+        },
+        "then": {
+          "effect": "deny"
+        }
+      },
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    "id": "/providers/Microsoft.Management/managementGroups/ShitstormBrewing/providers/Microsoft.Authorization/policyDefinitions/97eb8ef0-02bd-4523-ae15-8fd5c4c949d7",
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "97eb8ef0-02bd-4523-ae15-8fd5c4c949d7",
+    "systemData": {
+      "createdBy": "scott@shitstormbrewing.beer",
+      "createdByType": "User",
+      "createdAt": "2024-05-07T15:32:28.5206Z",
+      "lastModifiedBy": "scott@shitstormbrewing.beer",
+      "lastModifiedByType": "User",
+      "lastModifiedAt": "2024-05-07T15:36:31.2566174Z"
+    }
+  }
